@@ -12,3 +12,6 @@ F2 = 0.676 (public)
 F2 = 0.635 (private)  
 место 359 / 2025  
 
+![image](https://github.com/SofiaKhutsieva/CV_object_detection/assets/73535658/04378c66-4714-4ee3-8647-a413440a2251)
+
+
