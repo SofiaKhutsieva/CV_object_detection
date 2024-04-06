@@ -1,0 +1,43 @@
+random_state: 42
+
+preprocessing:
+  source_dataset_path: ../../raw_data # путь к директории с исходными данными
+  target_dataset_path: dataset_test # путь к директории, где будет лежать предобработанный набор данных
+  source_dataset_descriptor_file_path: ../../raw_data/train.csv
+  target_dataset_descriptor_file_path: dataset_test/COTS.yaml
+  model_repo: ../yolov5
+  # Метод деления на тренировочную и валидационную подвыборки (Выбор из [pseudo_stratified, subsequence])
+  train_test_splitting_method: subsequence
+
+  # Набор параметров, отвечающий за доразметку данных
+  semi_supervised:
+    use_additional_labeling: True
+    model_weights_path: /home/projects/competitions/cv/kaggle_great_barrier_reef/khutsieva/results/yolov5m6/weights/best.pt # путь к весам модели, используемой для доразметки данных
+    nms_iou_threshold: 0.4
+    confidence_threshold: 0.8 # минимальный порог уверенности, необходимый для добавления bbox в разметку
+    # размер картинки для доразметки. Рекомендуется делать равным размеру картинки, указываемому  при моделировании
+    image_size: 2000
+    augment: True
+    # Выборка, на которой будет применяться дополнительная разметка, одно из значений [all_images, images_without_bboxes]
+    processed_sample: all_images
+    predictions_labels_iou_threshold: 0.4 # порог пересечения предсказанных bbox и меток
+
+  images_without_bboxes_part: 0.1 # Доля изображений без bboxes (относительно размеченных изображений)
+
+  test_size: 0.33 # размер тестовой выборки
+
+modelling:
+  image_size: 2000
+  batch_size: 4
+  epochs_number: 20
+  hyperparameters_file: hyps/hyp.scratch.yaml
+  weights: yolov5s6.pt
+  project_name: GreatBarrierReef
+  name: yolov5s6_img2000_epochs20_batch4
+
+postprocessing:
+  a: 1
+
+common:
+  # путь к репозиторию yolov5
+  model_repo: ../yolov5
